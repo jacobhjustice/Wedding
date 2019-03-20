@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    background-color: #FFDBE9;
+    padding-bottom: 100px;
+}
+
+/* .left {
+    float: left;
+}
+
+.right {
+    float: right;
+} */
+
+#navBar {
+    width: 100%;
+    min-width: 700px;
+    height: 75px;
+    padding: 0px 150px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    background-color: #FFDBE9;
+}
+
+#navBar .option {
+    width: 30%;
+    text-align: center;
+    color: gray;
+    line-height: 75px;
+    font-size: 48px;
+    cursor: pointer;
+    display: inline-block
+}
+
+#navBar .option:hover {
+    color: green;
+}
+
+#backgroundWrapper {
+    width: 100%;
+    height: 100%;
+    position:relative;
+}
+
+#backgroundImg {
+    z-index: 0;
+}
+
+#backgroundImg::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: calc(100% - 3px);
+    height: 100%;
+    background: rgba(0, 0, 0, .4);
+    z-index: 1;
+}
+
+.sectionHeader {
+    border-bottom: 5px solid #FFDBE9;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 10px;
+}
+
+#timeDetails {
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 250px);
+    width: 600px;
+    height: 300px;
+    color: white;
+    font-weight: bold;
+    font-size: 42px;
+    text-align: center;
+    z-index: 3
+}
+
+#timeDetails #tick {
+    margin-top:50px;
+    font-size: 32px;
+}
+
+#partyWrapper {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+    height: 800px;
+}
+
+#partyWrapper .divider {
+    width: 10px;
+    /* border: 1px solid #ffffff; */
+    background-color: #ffffff;
+    border-radius: 5px;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.partyContent {
+    height: 200px;
+    vertical-align: top;
+    width: calc(50% - 15px);
+    display: inline-block;
+}
+
+.partyContent .content {
+    height: 100px;
+    width: 100%;
+    padding: 10px 25px;
+    box-sizing: border-box;
+}
+
+.partyContent .content img {
+    height: 80px;
+    width: 80px;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+.partyContent .content .label {
+    font-size: 28px;
+    line-height: 32px;
+    margin-top:15px;
+    color: #96304c;
+    width: calc(100% - 100px);
+    font-weight: bold;
+    vertical-align: top;
+    display: inline-block;
+}
+.subtitle {
+    font-size: 18px;
+    line-height: 18px;
+    height: 18px;
+}
+
+.bridesmaidWrap .label {
+    padding-left: 15px;
+}
+
+.groomsman .label {
+    padding-right: 15px;
+    text-align: right;
+}
