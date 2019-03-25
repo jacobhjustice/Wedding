@@ -69,7 +69,7 @@ body {
 
 #timeDetails {
     position: absolute;
-    top: calc(50% - 150px);
+    top: calc(50% - 200px);
     left: calc(50% - 250px);
     width: 600px;
     height: 300px;
@@ -115,6 +115,7 @@ body {
     width: 100%;
     padding: 10px 25px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .partyContent .content img {
@@ -122,6 +123,7 @@ body {
     width: 80px;
     border-radius: 50px;
     display: inline-block;
+    position: absolute;
 }
 
 .partyContent .content .label {
@@ -131,8 +133,9 @@ body {
     color: #96304c;
     width: calc(100% - 100px);
     font-weight: bold;
-    vertical-align: top;
-    display: inline-block;
+    /* vertical-align: top; */
+    /* display: inline-block; */
+    position: absolute;
 }
 .subtitle {
     font-size: 18px;
@@ -140,11 +143,22 @@ body {
     height: 18px;
 }
 
-.bridesmaidWrap .label {
-    padding-left: 15px;
+.bridesmaidWrap img {
+    left: 0px;
 }
 
-.groomsman .label {
-    padding-right: 15px;
+.bridesmaidWrap .label {
+    /* padding-left: 15px; */
+    left: 100px;
+    text-align: left;
+}
+
+.groomsmanWrap img {
+    right: 0px;
+}
+
+.groomsmanWrap .label {
+    /* padding-right: 15px; */
     text-align: right;
+    right: 100px;
 }

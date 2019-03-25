@@ -18,5 +18,31 @@ wedding = {
                 wedding.entry.clockTick(); 
             }, 1000)
         }
+    },
+
+    util: {
+        callServer: function(func, callback, paramArray) {
+
+            http = new XMLHttpRequest();
+        
+            http.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status < 500) {
+                    if (typeof callback == "function" && callback != undefined) {
+                        callback(this.responseText);
+                    }
+                }
+            };
+        
+           // var url = "server_requests.php"?FUNCTION=" + func";
+           var url = "backend/addUser.php?t=1";
+            if(paramArray != undefined) {
+                for(var i = 0; i < paramArray.length - 1; i += 2) {
+                    url += "&" + paramArray[i] + "=" + paramArray [i+1];
+                }
+            }
+        
+            http.open("GET", url, true); 
+            http.send();
+        },
     }
 }
