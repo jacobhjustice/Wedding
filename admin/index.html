@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <link rel="stylesheet" href="index.css"></link>
+        <script src="../js/admin.js"></script>
+        <script src="../js/util.js"></script>
+
+        <div id="addMemberForm" class="form">
+            <h2>Add Guest to List</h2>
+            <div class="members">
+                <div class="member">
+                    <label>Name<input type="text" class="name"/></label>
+                    <label>Phone<input type="text" class="phone"/></label>
+                    <label>Email<input type="text" class="email"/></label>
+                    <label>Addrress<input type="text" class="address"/></label>
+                </div>
+            </div>
+            <div class="btn" id="addMemberToParty" onclick="wedding.admin.addMemberToParty(addMemberForm)">Add +1</div>
+            <div class="divider"></div>
+            <div class="btn" id="submitParty" onclick="wedding.admin.submitParty(addMemberForm)">Add to List</div>
+            <div class="error">You must fill out every field for each guest in order to submit the pary to the guest list.</div>
+            <div class="success">Guest(s) added successfully!</div>
+        </div>
+    </body>
+</html>

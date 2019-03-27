@@ -1,0 +1,75 @@
+body {
+    margin: 0;
+    background-color: #FFDBE9;
+    padding-bottom: 100px;
+}
+
+.form {
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 0 15px 30px 15px;
+    background-color: #ffffff;
+    width: 500px;
+    height: auto;
+}
+
+.form .error {
+    color: #ff4400;
+    display: none;
+    text-align: center;
+}
+
+.form .success {
+    display: none;
+    text-align: center;
+}
+
+.form .btn {
+    width: 150px;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;  
+    cursor: pointer;
+    background-color: #44bb00;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.form .divider {
+    width: calc(100% - 60px);
+    margin: 30px;
+    height: 3px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    background-color: #000000;
+}
+
+.form h2 {
+    margin: 0 auto;
+    padding: 10px;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.member {
+    width: 100%;
+    text-align: center;
+}
+
+.member input {
+    margin-right: 20px;
+    width: 80%;
+    float: right;
+}
+
+.member label {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#removeMemberFromParty {
+    background-color: #ff4400;
+}
