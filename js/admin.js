@@ -21,8 +21,8 @@ wedding.admin = {
     },
 
     removeMemberFromParty: function(wrapper) {
-        form.getElementsByClassName("success")[0].style.display = "none";
-        form.getElementsByClassName("error")[0].style.display = "none";
+        document.getElementsByClassName("success")[0].style.display = "none";
+        document.getElementsByClassName("error")[0].style.display = "none";
         wrapper.parentElement.removeChild(wrapper);
     },
 

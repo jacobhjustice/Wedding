@@ -55,8 +55,8 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: calc(100% - 3px);
-    height: 100%;
+    height: calc(100% - 3px);
+    width: 100%;
     background: rgba(0, 0, 0, .4);
     z-index: 1;
 }
@@ -161,4 +161,41 @@ body {
     /* padding-right: 15px; */
     text-align: right;
     right: 100px;
+}
+
+#guestTableWrapper {
+    width: 600px;
+}
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.row {
+    display: table-row;
+    width: 100%;
+    border-top: 1px solid black;
+    height: 50px;
+    line-height: 50px;
+    font-size: 32px;
+}
+
+.cell {
+    display: table-cell;
+    width: 400px;
+    height: 100%;
+    border-top: 2px solid black
+}
+
+.cell:first {
+    border-top: none;
+}
+
+.cell.secondary {
+    border-top: none;
+}
+
+.cell.status {
+    width: 200px;
 }

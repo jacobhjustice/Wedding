@@ -21,5 +21,14 @@ wedding.util = {
     
         http.open("GET", url, true); 
         http.send();
+    },
+
+    formatString: function(templateString, object) {
+        for(var property in object) {
+            if (object.hasOwnProperty(property)) {
+                templateString = templateString.split("%%%" + property + "%%%").join(object[property]);
+            }
+        }
+        return templateString;
     }
 }
