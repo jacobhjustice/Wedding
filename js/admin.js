@@ -57,6 +57,6 @@ wedding.admin = {
                     inputs[i].value = "";
                 }
             }
-        }, ["DATA", encodeURIComponent(JSON.stringify(json))]) 
+        }, ["DATA", encodeURIComponent(JSON.stringify(json))]);
     }
 };

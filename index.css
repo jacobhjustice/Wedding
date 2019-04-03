@@ -2,6 +2,7 @@ body {
     margin: 0;
     background-color: #FFDBE9;
     padding-bottom: 100px;
+    font-family: "Cookie"
 }
 
 /* .left {
@@ -175,14 +176,21 @@ body {
 .row {
     display: table-row;
     width: 100%;
+}
+
+.cell {
+    display: table-cell;
+
+}
+
+#guestTableWrapper .row {
     border-top: 1px solid black;
     height: 50px;
     line-height: 50px;
     font-size: 32px;
 }
 
-.cell {
-    display: table-cell;
+#guestTableWrapper .cell {
     width: 400px;
     height: 100%;
     border-top: 2px solid black
@@ -197,5 +205,142 @@ body {
 }
 
 .cell.status {
+    width: 200px;
+}
+
+#rsvpWrapper {
+    position: fixed;
+    top: 0;
+    z-index: 8;
+    background-color: rgba(0, 0, 0, .4);
+    width: 100vw;
+    height: 100vh;
+}
+
+#rsvpModal {
+    width: 700px;
+    /* min-height: 185px; */
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 10%;
+    z-index: 10;
+    position: relative;
+}
+
+#rsvpModal #x {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    /* color: #c9cacc; */
+    color: #ff4444;
+    font-weight: bold;
+    width: 25px;
+    height: 25px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#modalContent {
+    padding: 10px;
+}
+
+#rsvpModal .divider {
+    width: 117%;
+    background-color: #000000;
+    border-radius: 5px;
+    height: 3px;
+    box-sizing: border-box;
+    margin: 15px 40px;
+}
+
+#invitationInput {
+    width: 70%;
+    margin: 20px 15%;
+}
+
+.header {
+    font-size: 38px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn {
+    width: 150px;
+    margin: 0 auto;
+    height: 30px;
+    line-height: 30px;  
+    cursor: pointer;
+    background-color: #44bb00;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.guestPartyRow {
+    height: auto;
+}
+
+.guestPartyContent {
+    width: 75%;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    /* white-space: nowrap; */
+    height: auto;
+}
+
+.guest {
+    width: 100%;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.guestPartyMe {
+    width: 20%;
+    /* display: inline-block; */
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+
+.guest div {
+    /* width: 50%; */
+    padding: 10px 0;
+    text-align: left;
+    box-sizing: border-box;
+    height: 45px;
+    line-height: 25px;
+    font-size: 22px;
+    display: inline-block;
+}
+
+.guest div.rsvp {
+    width: 100px;
+}
+
+.guest div.name {
+    width: calc(100% - 100px);
+    text-align: left;
+}
+
+#modalContent .table {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.guestPartyMe  .btn {
+    margin-bottom: 0;
+}
+
+.guestRSVP {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 32px;
+}
+
+.rsvpLabel {
     width: 200px;
 }

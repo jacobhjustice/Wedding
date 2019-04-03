@@ -26,30 +26,34 @@ wedding.guests = {
     getGuests: function() {
         var self = this;
         wedding.util.callServer("getGuests.php", function(data){
-            var guests = JSON.parse(data);
-            var partyList = [];
-            var curParty;
-            for(var i = 0; i < guests.length; i++) {
-                var name = guests[i].NAME;
-                var rsvp = guests[i].RSVP;
-                var primary = guests[i].PRIMARY_GUEST;
-                var id = guests[i].ID;
-
-                var guest = new self.guest(id, name, rsvp, primary == null);
-
-                if(curParty == null || guest.isPrimary) {
-                    if(curParty != null) {
-                        partyList.push(curParty);
-                    }
-                    curParty = new self.guestParty(guest);
-                } else {
-                    curParty.guests.push(guest);
-                }
-
-            }
-            partyList.push(curParty);
+            partyList = self.packageGuests(data);
             self.partyList = partyList;
         })
+    },
+    packageGuests: function(data) {
+        var guests = JSON.parse(data);
+        var partyList = [];
+        var curParty;
+        for(var i = 0; i < guests.length; i++) {
+            var name = guests[i].NAME;
+            var rsvp = guests[i].RSVP;
+            var primary = guests[i].PRIMARY_GUEST;
+            var id = guests[i].ID;
+
+            var guest = new this.guest(id, name, rsvp, primary == null);
+
+            if(curParty == null || guest.isPrimary) {
+                if(curParty != null) {
+                    partyList.push(curParty);
+                }
+                curParty = new this.guestParty(guest);
+            } else {
+                curParty.guests.push(guest);
+            }
+
+        }
+        partyList.push(curParty);
+        return partyList;
     },
     generateGuestTableHTML: function() {
         var wrapper = document.createElement("div");
