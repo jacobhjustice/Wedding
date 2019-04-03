@@ -243,6 +243,7 @@ body {
 
 #modalContent {
     padding: 10px;
+    text-align: center;
 }
 
 #rsvpModal .divider {
@@ -266,6 +267,15 @@ body {
     margin-top: 20px;
 }
 
+.btnWrapper {
+    margin: 0 auto;
+    display: inline-block;
+}
+
+.btnWrapper .btn {
+    display: inline-block;
+}
+
 .btn {
     width: 150px;
     margin: 0 auto;
@@ -277,6 +287,11 @@ body {
     text-align: center;
     border-radius: 7px;
     margin-bottom: 10px;
+}
+
+.btn.error {
+    background-color: #ff4400;
+    margin-right: 20px;
 }
 
 .guestPartyRow {
@@ -342,5 +357,5 @@ body {
 }
 
 .rsvpLabel {
-    width: 200px;
+    width: 100%;
 }

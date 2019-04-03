@@ -30,15 +30,21 @@ wedding.rsvp = {
                 <div class="name">%%%name%%%</div>
             </div>`,
         guestRowEdit:
-            `<div class="guestRSVP">
+            `<div class="guestRSVP" data-id="%%%id%%%">
                 <div class="rsvpLabel">%%%name%%%'s RSVP Status: </div>
-                <label><input type="radio" name="status%%%index%%%" value="Pending" checked="%%%pendingCheck%%%"> Pending     </label>
-                <label><input type="radio" name="status%%%index%%%" value="Accept" checked="%%%acceptCheck%%%"> Going     </label>
-                <label><input type="radio" name="status%%%index%%%" value="Decline" checked="%%%declineCheck%%%"> Unable to Attend     </label>
-            </div>`,
+                <div id="statuses%%%index%%%" class="radios">
+                    <label><input type="radio" name="status%%%index%%%" value="Pending" %%%pendingCheck%%% > Pending     </label>
+                    <label><input type="radio" name="status%%%index%%%" value="Accept" %%%acceptCheck%%% > Going     </label>
+                    <label><input type="radio" name="status%%%index%%%" value="Decline" %%%declineCheck%%% > Unable to Attend     </label>
+                </div>
+            </div>
+            <br/>`,
         guestRowSubmit:
-            `<br/><br/>
-            <div class="btn" id="submitRSVPStatuses">Submit</div>`
+            `<br/>
+            <div class="btnWrapper">
+                <div class="btn error" onclick="wedding.rsvp.displayParty();">Back</div>
+                <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
+            </div>`
     },
 
     currentGuestParties: [],
@@ -50,26 +56,31 @@ wedding.rsvp = {
         document.body.appendChild(wrapper);
         document.getElementById("modalContent").innerHTML = this.templates.findInvitationView;
     },
+    // TODO make back button to search bar
     findGuest: function(input) {
         var self = this;
         var name = input.value;
         wedding.util.callServer("getGuests.php", function(data){
-            var parties = wedding.guests.packageGuests(data);
-            self.currentGuestParties = parties;
-            var html = "";
+            self.currentGuestParties = wedding.guests.packageGuests(data);
+            self.displayParty();
+        }, ["NAME",  encodeURIComponent(name)]);
+    },
+    displayParty: function() {
+        var parties = this.currentGuestParties
+        var html = "";
             for(var i = 0; i < parties.length; i++) {
                 if(i != 0) {
-                    html += self.templates.divider;
+                    html += this.templates.divider;
                 }
                 var partyHTML = "";
                 for(var o = 0; o < parties[i].guests.length; o++) {
-                    partyHTML += wedding.util.formatString(self.templates.guestRow, parties[i].guests[o]);
+                    partyHTML += wedding.util.formatString(this.templates.guestRow, parties[i].guests[o]);
                 }
                 var obj = {
                     partyHTML: partyHTML,
                     id: parties[i].id
                 };
-                html += wedding.util.formatString(self.templates.partyRow, obj);
+                html += wedding.util.formatString(this.templates.partyRow, obj);
 
             }
             var wrapper = document.createElement("div");
@@ -78,7 +89,6 @@ wedding.rsvp = {
             element = document.getElementById("modalContent");
             element.innerHTML = "";
             element.appendChild(wrapper);
-        }, ["NAME",  encodeURIComponent(name)]);
     },
     closeRSVP: function() {
         document.body.removeChild(document.getElementById("rsvpDiv"));
@@ -94,11 +104,30 @@ wedding.rsvp = {
                 name: guest.name,
                 pendingCheck: guest.rsvp == "Pending" ? "checked" : "",
                 acceptCheck: guest.rsvp == "Accept" ? "checked" : "",
-                declineCheck: guest.rsvp == "Decline" ? "checked" : ""
-            }
+                declineCheck: guest.rsvp == "Decline" ? "checked" : "",
+                index: i,
+                id: guest.id
+            };
             html += wedding.util.formatString(this.templates.guestRowEdit, obj);
         }
+        this.currentID = party.id;
         html += this.templates.guestRowSubmit
         document.getElementById("modalContent").innerHTML = html;
+    },
+    submitStatuses: function(){
+        var rows = document.getElementsByClassName("guestRSVP");
+        var json = [];
+        for(var i = 0; i < rows.length; i++) {
+            var id = rows[i].dataset["id"];
+            var rsvp = document.querySelector(`input[name="status` + i + `"]:checked`).value;
+
+            json.push({
+                ID: parseInt(id),
+                RSVP: rsvp
+            });
+        }
+        wedding.util.callServer("rsvpGuest.php", function(data){
+            console.log(data);
+        }, ["DATA", encodeURIComponent(JSON.stringify(json))]);
     }
 };
