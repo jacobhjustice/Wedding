@@ -27,7 +27,7 @@ body {
 }
 
 #navBar .option {
-    width: 30%;
+    width: 33%;
     text-align: center;
     color: gray;
     line-height: 75px;
@@ -291,6 +291,9 @@ body {
 
 .btn.error {
     background-color: #ff4400;
+}
+
+.btnWrapper .btn.error {
     margin-right: 20px;
 }
 

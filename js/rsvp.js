@@ -42,9 +42,11 @@ wedding.rsvp = {
         guestRowSubmit:
             `<br/>
             <div class="btnWrapper">
-                <div class="btn error" onclick="wedding.rsvp.displayParty();">Back</div>
+                <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
                 <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
-            </div>`
+            </div>`,
+        finalView:
+            `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`
     },
 
     currentGuestParties: [],
@@ -127,7 +129,27 @@ wedding.rsvp = {
             });
         }
         wedding.util.callServer("rsvpGuest.php", function(data){
-            console.log(data);
+            if(data == "SUCCESS") {
+                document.getElementById("modalContent").innerHTML = wedding.util.formatString(
+                    wedding.rsvp.templates.finalView, {
+                    STRING: wedding.rsvp.getFinishMessage(json[0].RSVP)
+                });
+            } else {
+                // error
+            }
         }, ["DATA", encodeURIComponent(JSON.stringify(json))]);
+    },
+
+    getFinishMessage: function(status) {
+        switch(status) {
+            case "Pending": 
+                return "We await hearing back from you!";
+            case "Decline":
+                return "We wish you could make it!";
+            case "Accept": 
+                return "We can't wait to see you there!";
+            default:
+                return "";
+        };
     }
 };
