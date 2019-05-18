@@ -13,9 +13,11 @@ wedding.guests = {
             </div>`,
     },
     partyList: [],
-    guestParty: function(primaryGuest) {
+    guestParty: function(primaryGuest, address, isSaveTheDateSent) {
         this.id = primaryGuest.id;
         this.guests = [primaryGuest];
+        this.address = address;
+        this.isSaveTheDateSent = isSaveTheDateSent;
     },
     guest: function(id, name, rsvp, isPrimary) {
         this.id = id;
@@ -23,12 +25,15 @@ wedding.guests = {
         this.rsvp = rsvp;
         this.isPrimary = isPrimary;
     },
-    getGuests: function() {
+    getGuests: function(cb) {
         var self = this;
         wedding.util.callServer("getGuests.php", function(data){
             partyList = self.packageGuests(data);
             self.partyList = partyList;
-        })
+            if(cb != null) {
+                cb(partyList)
+            }
+        });
     },
     packageGuests: function(data) {
         var guests = JSON.parse(data);
@@ -46,7 +51,7 @@ wedding.guests = {
                 if(curParty != null) {
                     partyList.push(curParty);
                 }
-                curParty = new this.guestParty(guest);
+                curParty = new this.guestParty(guest, guests[i].ADDRESS, guests[i].SAVE_THE_DATE == true);
             } else {
                 curParty.guests.push(guest);
             }

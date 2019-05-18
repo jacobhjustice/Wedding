@@ -6,18 +6,28 @@ wedding.admin = {
                 <div class="divider"></div>
                 <div class="member">
                     <label>Name<input type="text" class="name"/></label>
-                    <label>Phone<input type="text" class="phone"/></label>
-                    <label>Email<input type="text" class="email"/></label>
-                    <label>Addrress<input type="text" class="address"/></label>
                 </div>
                 <div class="btn" id="removeMemberFromParty" onclick="wedding.admin.removeMemberFromParty(this.parentNode);">Remove Member</div>
+            </div>`,
+        guestAddress:
+            `<div class="%%%stdClass%%% fill" onclick="wedding.admin.setSaveTheDate();">
+                <div class="addrContent">
+                    <div class="name">%%%name%%%</div>
+                    <div class="street">%%%street%%%</div>
+                    <div class="zip">%%%zip%%%</div>
+                </div>
+                <div class="stdInfo">%%%stdStr%%%</div>
             </div>`
-    },
+    },      
+
+    currentGuest: 0,  
 
     addMemberToParty: function(form) {
         form.getElementsByClassName("success")[0].style.display = "none";
         form.getElementsByClassName("error")[0].style.display = "none";
-        form.getElementsByClassName("members")[0].innerHTML += this.templates.memberTemplate;
+        var wrapper = document.createElement("div");
+        wrapper.innerHTML = this.templates.memberTemplate;
+        document.getElementById("members").appendChild(wrapper)
     },
 
     removeMemberFromParty: function(wrapper) {
@@ -34,19 +44,15 @@ wedding.admin = {
         for(var i = 0; i < members.length; i++) {
             var mem = members[i];
             var name = mem.getElementsByClassName("name")[0].value;
-            var phone = mem.getElementsByClassName("phone")[0].value;
-            var email = mem.getElementsByClassName("email")[0].value;
-            var addy = mem.getElementsByClassName("address")[0].value;
+            var addy = i == 0 ? mem.getElementsByClassName("address")[0].value : " ";
 
-            if(name == "" || phone == "" || email == "" || addy == "") {
+            if(name == "" || addy == "") {
                 form.getElementsByClassName("error")[0].style.display = "block";
                 return;
             }
             json.push({
                 NAME: name,
                 ADDRESS: addy,
-                PHONE: phone,
-                EMAIL: email
             });
         }
         wedding.util.callServer("addUser.php", function(data){
@@ -58,5 +64,55 @@ wedding.admin = {
                 }
             }
         }, ["DATA", encodeURIComponent(JSON.stringify(json))]);
+    },
+
+    onLoad: function() {
+        wedding.guests.getGuests(function(data){
+            wedding.admin.buildAddressCard();
+        });
+    },
+
+    cycleGuest: function(i) {
+        this.currentGuest = (this.currentGuest + i) % wedding.guests.partyList.length;
+        if(this.currentGuest == -1) {
+            this.currentGuest = wedding.guests.partyList.length - 1;
+        }
+        this.buildAddressCard();
+    },
+
+    buildAddressCard: function() {
+        // todo, loading screen when wedding.guests.partyList = []
+        if (wedding.guests != undefined) {
+            var party = wedding.guests.partyList[wedding.admin.currentGuest];
+            var names = party.guests.map(g => g.name);
+            var name = names.join(" & ");
+            var addr = party.address.split(";");
+
+            var stdStr = !party.isSaveTheDateSent ? "Click to mark save the date as written/sent" : "Click to mark save the date as unfinished"
+            var stdClass = party.isSaveTheDateSent ? "stdSent" : "stdPending"
+
+            var obj = {
+                name: name,
+                street: addr[0],
+                zip: addr.length > 1 ? addr[1] : "",
+                stdStr: stdStr,
+                stdClass: stdClass
+            };
+
+            document.getElementById("invitationFormContent").innerHTML = 
+                wedding.util.formatString(wedding.admin.templates.guestAddress, obj);
+
+        }
+    },
+    
+    setSaveTheDate: function(element) {
+        var isSentNewStatus = !wedding.guests.partyList[wedding.admin.currentGuest].isSaveTheDateSent;
+        wedding.guests.partyList[wedding.admin.currentGuest].isSaveTheDateSent = isSentNewStatus;
+        var id = wedding.guests.partyList[wedding.admin.currentGuest].id;
+
+        this.buildAddressCard();
+        wedding.util.callServer("updateSent.php", function(data){
+            console.log(data);
+        }, ["SENT", isSentNewStatus, "ID", id]);
     }
 };

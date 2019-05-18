@@ -1,4 +1,4 @@
-<?php
+ <?php
     
     require 'secret.php';
     $con = mysqli_connect($server, $user, $password, $db);
@@ -31,7 +31,9 @@
             'ID' => $row["ID"],
             'NAME' => $row["Name"],
             'RSVP' => $row["RSVP"],
-            'PRIMARY_GUEST' => $row["PrimaryGuest"]
+            'PRIMARY_GUEST' => $row["PrimaryGuest"],
+            'ADDRESS' => $row["Address"],
+            'SAVE_THE_DATE' => $row["SaveTheDateSent"]
         ]);
     }
 

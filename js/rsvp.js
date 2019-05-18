@@ -3,6 +3,7 @@ wedding.rsvp = {
     templates: {
         rsvpModal: 
             `<div id="rsvpWrapper">
+                <div id="rsvpDimmer" onclick="wedding.rsvp.closeRSVP();"></div> 
                 <div id="rsvpModal">
                     <div id="x" onclick="wedding.rsvp.closeRSVP();">&times;</div>
                     <div id="modalContent">
