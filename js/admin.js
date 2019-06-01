@@ -19,6 +19,14 @@ wedding.admin = {
                 <div class="stdInfo">%%%stdStr%%%</div>
             </div>`
     },      
+    analytics: {
+        guests: 0,
+        parties: 0,
+        stdSent: 0,
+        attending: 0,
+        pending: 0,
+        reject: 0
+    },
 
     currentGuest: 0,  
 
@@ -69,6 +77,7 @@ wedding.admin = {
     onLoad: function() {
         wedding.guests.getGuests(function(data){
             wedding.admin.buildAddressCard();
+            wedding.admin.buildAnalyticDetails();
         });
     },
 
@@ -111,8 +120,43 @@ wedding.admin = {
         var id = wedding.guests.partyList[wedding.admin.currentGuest].id;
 
         this.buildAddressCard();
-        wedding.util.callServer("updateSent.php", function(data){
-            console.log(data);
-        }, ["SENT", isSentNewStatus, "ID", id]);
+        wedding.util.callServer("updateSent.php", function(data){}, ["SENT", isSentNewStatus, "ID", id]);
+    },
+
+    buildAnalyticDetails: function() {
+        var a = wedding.admin.analytics;
+        a.parties = 0;
+        a.pending = 0;
+        a.reject = 0;
+        a.attending = 0;
+        a.guests = 0;
+        a.stdSent = 0;
+
+        wedding.guests.partyList.forEach(function(party){
+            a.parties++;
+            if(party.isSaveTheDateSent) {
+                a.stdSent++;
+            }
+            party.guests.forEach(function(guest){
+                a.guests++;
+                switch(guest.rsvp) {
+                    case "Pending":
+                        a.pending++;
+                        break;
+                    case "Accept":
+                        a.attending++;
+                        break;
+                    case "Decline":
+                        a.reject++;
+                        break;
+                }
+            })
+        })
+        document.getElementById("guestData").innerHTML = a.guests;
+        document.getElementById("partyData").innerHTML = a.parties;
+        document.getElementById("stdSentData").innerHTML = a.stdSent;
+        document.getElementById("attendingData").innerHTML = a.attending;
+        document.getElementById("pendingData").innerHTML = a.pending;
+        document.getElementById("rejectData").innerHTML = a.reject;
     }
 };

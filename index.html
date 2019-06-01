@@ -5,15 +5,19 @@
     </head>
     <body>
         <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="index.css"></link>
         <script src="js/entry.js"></script>
         <script src="js/util.js"></script>
         <script src="js/guests.js"></script>
         <script src="js/rsvp.js"></script>
+        <script src="js/controller.js"></script>
         <div id="navBar">
-            <div class="option">Details</div>
-            <div class="option" onclick="wedding.rsvp.showModal();">RSVP</div>
-            <div class="option">Registary</div>
+            <div class="option">The Wedding</div>
+            <div class="option">The Couple</div>
+            <div class="option" onclick="wedding.controller.load(wedding.controller.labels.rsvp);">RSVP</div>
+            <div class="option">The Registary</div>
+            <div class="option">The Trip</div>
         </div>
         <div id="entry" class="content">
             <div id="backgroundWrapper">
@@ -21,12 +25,22 @@
                         <img style="width:100%;" src ="/img/propls.jpg" />
                     </div>
                     <div id="timeDetails">
-                            <div id="Details"><div class="sectionHeader">Ceremony & Reception</div>December 21st, 4:00 PM<br/>Newnan Historic Train Depot<br/>60 E Broad St, Newnan, GA</div>
+                            <div id="Details"><div class="timeHeader">Ceremony & Reception</div>December 21st, 4:00 PM<br/>Newnan Historic Train Depot<br/>60 E Broad St, Newnan, GA</div>
+                            <div id="rsvpBtn" onclick="wedding.controller.load(wedding.controller.labels.rsvp);">RSVP</div>
                             <div id="tick"></div>
+
                     </div>
+
                 </div>
-            <!-- <h3>The Party</h3> -->
-            <div id="partyWrapper">
+            <!-- <div id="partyWrapper" class="contentWrapper">
+                <div class="sectionHeader">The Wedding</div>
+                 <img id="venueImg" src="img/venue.jpg" />
+                 <div class="subSectionHeader">Ceremony & Reception</div>
+                 https://goo.gl/maps/aKbywQo5PGA81iy28 
+            </div> -->
+            
+            <div id="partyWrapper" class="contentWrapper">
+                <div class="sectionHeader">The Party</div>
                 <div class="left partyContent">
                     <div class="bridesmaidWrap content">
                         <img src="img/tippy.png"/>
@@ -41,25 +55,26 @@
                         <div class="label">Rachel Allain<br/><div class="subtitle">Bridesmaid</div></div>
                     </div>
                     <div class="bridesmaidWrap content">
-                        <img src=".png"/>
-                        <div class="label">Grace McCormick<br/><div class="subtitle">Bridesmaid</div></div>
-                    </div>
-                    <div class="bridesmaidWrap content">
-                        <img src="img/leah.png"/>
-                        <div class="label">Leah Hildreth<br/><div class="subtitle">Bridesmaid</div></div>
-                    </div>
-                    <div class="bridesmaidWrap content">
-                        <img src="img/meg.jpg"/>
-                        <div class="label">Megan Zecher<br/><div class="subtitle">Bridesmaid</div></div>
+                        <img src="img/madison.jpg"/>
+                        <div class="label">Madison McCormick<br/><div class="subtitle">Bridesmaid</div></div>
                     </div>
                     <div class="bridesmaidWrap content">
                         <img src="img/sarah.jpg"/>
                         <div class="label">Sarah Byrd<br/><div class="subtitle">Bridesmaid</div></div>
                     </div>
                     <div class="bridesmaidWrap content">
-                        <img src="img/madison.jpg"/>
-                        <div class="label">Madison McCormick<br/><div class="subtitle">Bridesmaid</div></div>
+                        <img src="img/leah.png"/>
+                        <div class="label">Leah Hildreth<br/><div class="subtitle">Bridesmaid</div></div>
                     </div>
+                    <div class="bridesmaidWrap content">
+                        <img src=".png"/>
+                        <div class="label">Grace McCormick<br/><div class="subtitle">Bridesmaid</div></div>
+                    </div>
+                    <div class="bridesmaidWrap content">
+                        <img src="img/meg.jpg"/>
+                        <div class="label">Megan Zecher<br/><div class="subtitle">Bridesmaid</div></div>
+                    </div>
+                    
                 </div>
                 <div class="divider"></div>
                 <div class="right partyContent">
@@ -80,28 +95,34 @@
                             <div class="label">Gavin Prather<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                         <div class="groomsmanWrap content">
-                            <img src=".png"/>
-                            <div class="label">Trip Watson<br/><div class="subtitle">Groomsman</div></div>
-                        </div>
-                        <div class="groomsmanWrap content">
                             <img src="img/michael.jpg"/>
                             <div class="label">Michael Young<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                         <div class="groomsmanWrap content">
-                            <img src=".png"/>
+                            <img src="img/mat.jpg"/>
+                            <div class="label">Mathew Meyer<br/><div class="subtitle">Groomsman</div></div>
+                        </div>
+                        <div class="groomsmanWrap content">
+                            <img src="img/ryan.jpg" />
                             <div class="label">Ryan LaGrone<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                         <div class="groomsmanWrap content">
                             <img src=".png"/>
-                            <div class="label">Mathew Meyer<br/><div class="subtitle">Groomsman</div></div>
+                            <div class="label">Trip Watson<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                 </div>
             </div>
         </div>
-        <div id="guests" class="content">
-            <div class="table">
-
-            </div>
+        <div class="contentWrapper">
+            <div class="sectionHeader">Our Story</div>
+             <div class="textContent">
+                    Katie and Jacob met through mutual friends in marching band in 2016. Even after meeting, they were slow to become acquaintances. Eventually, Katie started coming to be a part of Jacob's weekly Bible study.
+                    <br /> <br/>
+                    Over the next few months, Katie and Jacob began to hang out more regularly. Although Jacob had feelings for Katie, she did not feel the same way. That, however, did not stop their friendship.
+                    <br /> <br/>
+                    Eventually, conversations about dating resurfaced. They decided to take a leap of faith and go for it, and boy did it pay off! 
+                    
+             </div>
         </div>
         <script>wedding.entry.clockTick();</script>
         <!-- wedding.details.getGuests() -->

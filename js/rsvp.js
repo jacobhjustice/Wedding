@@ -18,6 +18,7 @@ wedding.rsvp = {
                 <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
             </div>`,
         divider: `<div class="divider"></div>`,
+        emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div><div class="btn error" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.rsvp);">Back</div>`,
         partyRow: 
             `<div class="guestPartyRow row">
                 <div class="guestPartyContent cell">%%%partyHTML%%%</div>
@@ -59,6 +60,10 @@ wedding.rsvp = {
         document.body.appendChild(wrapper);
         document.getElementById("modalContent").innerHTML = this.templates.findInvitationView;
     },
+
+    showPage: function() {
+
+    },
     // TODO make back button to search bar
     findGuest: function(input) {
         var self = this;
@@ -71,6 +76,11 @@ wedding.rsvp = {
     displayParty: function() {
         var parties = this.currentGuestParties
         var html = "";
+        var wrapper = document.createElement("div");
+        if (parties.length == 0 || parties[0] == undefined) {
+            html += this.templates.emptyView;
+        } else {
+            wrapper.classList.add("table"); 
             for(var i = 0; i < parties.length; i++) {
                 if(i != 0) {
                     html += this.templates.divider;
@@ -86,12 +96,11 @@ wedding.rsvp = {
                 html += wedding.util.formatString(this.templates.partyRow, obj);
 
             }
-            var wrapper = document.createElement("div");
-            wrapper.classList.add("table"); 
-            wrapper.innerHTML = html;
-            element = document.getElementById("modalContent");
-            element.innerHTML = "";
-            element.appendChild(wrapper);
+        }
+        wrapper.innerHTML = html;
+        element = document.getElementById("modalContent");
+        element.innerHTML = "";
+        element.appendChild(wrapper);
     },
     closeRSVP: function() {
         document.body.removeChild(document.getElementById("rsvpDiv"));

@@ -5,13 +5,41 @@ body {
     font-family: "Cookie"
 }
 
-/* .left {
-    float: left;
+.sectionHeader {
+    font-size: 70px;
+    color: #99838b;
+    width: 100%;
+    height: 75px;
+    line-height: 75px;
+    margin-bottom:25px;
+    text-align: center;
 }
 
-.right {
-    float: right;
-} */
+#rsvpBtn {
+    width: 200px;
+    height: 45px;
+    font-size: 32px;
+    line-height: 50px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    cursor: pointer;
+    font-family: 'Kalam', cursive;
+    margin: 0 auto;
+    margin-top: 20px; 
+    color: black;
+    border-radius: 15px;
+}
+
+.subSectionHeader {
+    font-weight: bold;
+    color: #96304c;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 38px;
+    margin-top: 25px;
+}
 
 #navBar {
     width: 100%;
@@ -27,7 +55,7 @@ body {
 }
 
 #navBar .option {
-    width: 33%;
+    width: calc(20% - 3px);
     text-align: center;
     color: gray;
     line-height: 75px;
@@ -62,7 +90,7 @@ body {
     z-index: 1;
 }
 
-.sectionHeader {
+.timeHeader {
     border-bottom: 5px solid #FFDBE9;
     border-radius: 0 0 10px 10px;
     margin-bottom: 10px;
@@ -82,15 +110,19 @@ body {
 }
 
 #timeDetails #tick {
-    margin-top:50px;
+    margin-top: 20px;
     font-size: 32px;
 }
 
-#partyWrapper {
-    width: 800px;
+.contentWrapper {
+    width: 900px;
     margin: 0 auto;
-    margin-top: 50px;
-    height: 800px;
+    margin-top: 35px;
+    /* height: 800px; */
+}
+
+#partyWrapper {
+    height: 1325px;
 }
 
 #partyWrapper .divider {
@@ -98,7 +130,7 @@ body {
     /* border: 1px solid #ffffff; */
     background-color: #ffffff;
     border-radius: 5px;
-    height: 100%;
+    height: 90%;
     box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
@@ -112,7 +144,7 @@ body {
 }
 
 .partyContent .content {
-    height: 100px;
+    height: 150px;
     width: 100%;
     padding: 10px 25px;
     box-sizing: border-box;
@@ -120,17 +152,17 @@ body {
 }
 
 .partyContent .content img {
-    height: 80px;
-    width: 80px;
-    border-radius: 50px;
+    height: 120px;
+    width: 120px;
+    border-radius: 100px;
     display: inline-block;
     position: absolute;
 }
 
 .partyContent .content .label {
-    font-size: 28px;
-    line-height: 32px;
-    margin-top:15px;
+    font-size: 38px;
+    line-height: 38px;
+    margin-top: 30px;
     color: #96304c;
     width: calc(100% - 100px);
     font-weight: bold;
@@ -139,9 +171,9 @@ body {
     position: absolute;
 }
 .subtitle {
-    font-size: 18px;
-    line-height: 18px;
-    height: 18px;
+    font-size: 24px;
+    line-height: 24px;
+    height: 24px;
 }
 
 .bridesmaidWrap img {
@@ -150,7 +182,7 @@ body {
 
 .bridesmaidWrap .label {
     /* padding-left: 15px; */
-    left: 100px;
+    left: 140px;
     text-align: left;
 }
 
@@ -161,7 +193,11 @@ body {
 .groomsmanWrap .label {
     /* padding-right: 15px; */
     text-align: right;
-    right: 100px;
+    right: 140px;
+}
+
+.partyContent .subtitle {
+    font-family: 'Kalam', cursive;
 }
 
 #guestTableWrapper {
@@ -209,7 +245,7 @@ body {
 }
 
 #rsvpWrapper {
-    position: fixed;
+    position: absolute;
     top: 0;
     z-index: 8;
     width: 100vw;
@@ -273,6 +309,10 @@ body {
     width: 100%;
     text-align: center;
     margin-top: 20px;
+}
+
+.modalAlertMessage {
+    margin-bottom: 20px;
 }
 
 .btnWrapper {
@@ -369,4 +409,18 @@ body {
 
 .rsvpLabel {
     width: 100%;
+}
+
+
+#venueImg {
+    width: 800px;
+}
+
+.textContent {
+    width: 500px;
+    margin: 0 auto;
+    margin-bottom:50px;
+    text-align: center;
+    font-size: 32px;
+    font-family: 'Kalam', cursive;
 }
