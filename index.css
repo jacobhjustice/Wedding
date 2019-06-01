@@ -1,8 +1,16 @@
 body {
-    margin: 0;
+    margin: 75px 0 0 0;
     background-color: #FFDBE9;
     padding-bottom: 100px;
     font-family: "Cookie"
+}
+
+.tabContent {
+    display: none;
+}
+
+#entry.tabContent {
+    display: block;
 }
 
 .sectionHeader {
@@ -60,8 +68,10 @@ body {
     color: gray;
     line-height: 75px;
     font-size: 48px;
+    height: 75px;
+    overflow: hidden;
     cursor: pointer;
-    display: inline-block
+    display: inline-block;
 }
 
 #navBar .option:hover {
@@ -412,6 +422,8 @@ body {
 }
 
 
+
+
 #venueImg {
     width: 800px;
 }
@@ -423,4 +435,16 @@ body {
     text-align: center;
     font-size: 32px;
     font-family: 'Kalam', cursive;
+}
+
+.weddingPhoto {
+    max-width: 500px;
+    max-height: 500px;
+    margin: 10px;
+    text-align: center;
+}
+
+.contentWrapper.photo {
+    width: 100%;
+    text-align: center;
 }

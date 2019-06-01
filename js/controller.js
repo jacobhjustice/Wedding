@@ -4,7 +4,7 @@ wedding.controller = {
     labels: {
         entry: "entry",
         rsvp: "rsvp",
-        
+        couple: "couple",
     },
     load: function(id) {
         switch(id) {
@@ -15,9 +15,16 @@ wedding.controller = {
                     wedding.rsvp.showPage();
                 }
                 break;
+            case this.labels.entry: 
+            case this.labels.couple:
+                this.swapActiveView(id);
+                break;
         }
     },
-    determine: function(){
-
+    swapActiveView: function(id) {
+        [].forEach.call(document.getElementsByClassName("tabContent"), element => {
+            element.style.display = "none";
+        });
+        document.getElementById(id).style.display = "block";
     }
 };

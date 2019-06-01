@@ -12,14 +12,16 @@
         <script src="js/guests.js"></script>
         <script src="js/rsvp.js"></script>
         <script src="js/controller.js"></script>
+        <script src="js/photos.js"></script>
+
         <div id="navBar">
-            <div class="option">The Wedding</div>
-            <div class="option">The Couple</div>
+            <div class="option" onclick="wedding.controller.load(wedding.controller.labels.entry);">The Wedding</div>
+            <div class="option" onclick="wedding.controller.load(wedding.controller.labels.couple);">The Couple</div>
             <div class="option" onclick="wedding.controller.load(wedding.controller.labels.rsvp);">RSVP</div>
-            <div class="option">The Registary</div>
-            <div class="option">The Trip</div>
+            <div class="option" onclick="wedding.controller.load(wedding.controller.labels.registry);">The Registary</div>
+            <div class="option" onclick="wedding.controller.load(wedding.controller.labels.trip);">The Trip</div>
         </div>
-        <div id="entry" class="content">
+        <div id="entry" class="tabContent">
             <div id="backgroundWrapper">
                     <div id="backgroundImg">
                         <img style="width:100%;" src ="/img/propls.jpg" />
@@ -113,18 +115,29 @@
                 </div>
             </div>
         </div>
-        <div class="contentWrapper">
-            <div class="sectionHeader">Our Story</div>
-             <div class="textContent">
-                    Katie and Jacob met through mutual friends in marching band in 2016. Even after meeting, they were slow to become acquaintances. Eventually, Katie started coming to be a part of Jacob's weekly Bible study.
-                    <br /> <br/>
-                    Over the next few months, Katie and Jacob began to hang out more regularly. Although Jacob had feelings for Katie, she did not feel the same way. That, however, did not stop their friendship.
-                    <br /> <br/>
-                    Eventually, conversations about dating resurfaced. They decided to take a leap of faith and go for it, and boy did it pay off! 
-                    
-             </div>
+        <div id="couple" class="tabContent">
+            <div class="contentWrapper">
+                <div class="sectionHeader">Our Story</div>
+                 <div class="textContent">
+                        Katie and Jacob met through mutual friends in marching band in 2016. Even after meeting, they were slow to become acquaintances. Eventually, Katie started coming to be a part of Jacob's weekly Bible study.
+                        <br /> <br/>
+                        Over the next few months, Katie and Jacob began to hang out more regularly. Although Jacob had feelings for Katie, she did not feel the same way. That, however, did not stop their friendship.
+                        <br /> <br/>
+                        Eventually, conversations about dating resurfaced. They decided to take a leap of faith and go for it, and boy did it pay off! 
+                        
+                 </div>
+            </div>
+            <div class="contentWrapper photo">
+                <div class="sectionHeader">Engagement Photos</div>
+                 <div id="engagementPhotoWrapper"></div>
+            </div>
+            <div class="contentWrapper photo">
+                <div class="sectionHeader">Other Photos</div>
+                 <div id="photoWrapper"></div>
+            </div>
         </div>
-        <script>wedding.entry.clockTick();</script>
+        
+        <script>wedding.entry.clockTick();wedding.photos.buildPhotos();</script>
         <!-- wedding.details.getGuests() -->
     </body>
 </html>
