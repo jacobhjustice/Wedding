@@ -6,6 +6,7 @@ wedding.controller = {
         rsvp: "rsvp",
         couple: "couple",
         trip: "trip",
+        registry: "registry"
     },
     load: function(id) {
         switch(id) {
@@ -20,6 +21,7 @@ wedding.controller = {
             case this.labels.entry: 
             case this.labels.couple:
             case this.labels.trip:
+            case this.labels.registry:
                 this.swapActiveView(id);
                 break;
         }
