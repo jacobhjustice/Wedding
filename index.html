@@ -17,7 +17,7 @@
         <div id="navBar">
             <div class="option" onclick="wedding.controller.load(wedding.controller.labels.entry);">The Wedding</div>
             <div class="option" onclick="wedding.controller.load(wedding.controller.labels.couple);">The Couple</div>
-            <div class="option" onclick="wedding.controller.load(wedding.controller.labels.rsvp);">RSVP</div>
+            <div class="option" id="rsvpNavigation" onclick="wedding.controller.load(wedding.controller.labels.rsvp);">RSVP</div>
             <div class="option" onclick="wedding.controller.load(wedding.controller.labels.registry);">The Registary</div>
             <div class="option" onclick="wedding.controller.load(wedding.controller.labels.trip);">The Trip</div>
         </div>
@@ -97,7 +97,7 @@
                             <div class="label">Gavin Prather<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                         <div class="groomsmanWrap content">
-                            <img src="img/michael.jpg"/>
+                            <img src="img/mike.jpg"/>
                             <div class="label">Michael Young<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                         <div class="groomsmanWrap content">
@@ -123,7 +123,7 @@
                         <br /> <br/>
                         Over the next few months, Katie and Jacob began to hang out more regularly. Although Jacob had feelings for Katie, she did not feel the same way. That, however, did not stop their friendship.
                         <br /> <br/>
-                        Eventually, conversations about dating resurfaced. They decided to take a leap of faith and go for it, and boy did it pay off! 
+                        Eventually, conversations about dating resurfaced. They decided to take a leap of faith and go for it, and boy did it pay off! The past few years have been an absolute blast, and we can't wait to see what God has in our future together!
                         
                  </div>
             </div>
@@ -136,8 +136,17 @@
                  <div id="photoWrapper"></div>
             </div>
         </div>
-        
-        <script>wedding.entry.clockTick();wedding.photos.buildPhotos();</script>
-        <!-- wedding.details.getGuests() -->
+        <div id="trip" class="tabContent">
+            <div class="contentWrapper">
+
+            </div>
+        </div>
+
+
+
+        <script>
+            wedding.entry.clockTick();
+            wedding.photos.buildPhotos();
+        </script>
     </body>
 </html>

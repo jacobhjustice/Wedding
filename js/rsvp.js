@@ -1,68 +1,89 @@
 var wedding = wedding != undefined ? wedding : {};
 wedding.rsvp = {
     templates: {
-        rsvpModal: 
-            `<div id="rsvpWrapper">
-                <div id="rsvpDimmer" onclick="wedding.rsvp.closeRSVP();"></div> 
-                <div id="rsvpModal">
-                    <div id="x" onclick="wedding.rsvp.closeRSVP();">&times;</div>
-                    <div id="modalContent">
-                        
-                    </div>
-                </div>
-            </div>`,
-        findInvitationView: 
-            `<div>
+        mobile: {
+            rsvpModal: `<div id="modalContent" class="mobile"></div>`,
+            findInvitationView: 
+            `<div class="searcher">
                 <div class="header">Enter your name in the box below to help us find your invitation</div>
                 <input id="invitationInput" />
                 <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
             </div>`,
-        divider: `<div class="divider"></div>`,
-        emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div><div class="btn error" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.rsvp);">Back</div>`,
-        partyRow: 
-            `<div class="guestPartyRow row">
-                <div class="guestPartyContent cell">%%%partyHTML%%%</div>
-                <div class="guestPartyMe cell">
-                    <div class="btn" id="rsvpMe" onclick="wedding.rsvp.guestPartyMe(%%%id%%%)">This is me!</div>
+        },
+        desktop: {
+            rsvpModal: 
+            `<div id="rsvpWrapper">
+                <div id="rsvpDimmer" onclick="wedding.rsvp.closeRSVP();"></div> 
+                <div id="rsvpModal">
+                    <div id="x" onclick="wedding.rsvp.closeRSVP();">&times;</div>
+                    <div id="modalContent"></div>
                 </div>
             </div>`,
-        guestRow:
-            `<div class="guest">
-                <div class="rsvp">%%%rsvp%%%</div>
-                <div class="name">%%%name%%%</div>
-            </div>`,
-        guestRowEdit:
-            `<div class="guestRSVP" data-id="%%%id%%%">
-                <div class="rsvpLabel">%%%name%%%'s RSVP Status: </div>
-                <div id="statuses%%%index%%%" class="radios">
-                    <label><input type="radio" name="status%%%index%%%" value="Pending" %%%pendingCheck%%% > Pending     </label>
-                    <label><input type="radio" name="status%%%index%%%" value="Accept" %%%acceptCheck%%% > Going     </label>
-                    <label><input type="radio" name="status%%%index%%%" value="Decline" %%%declineCheck%%% > Unable to Attend     </label>
+            findInvitationView: 
+                `<div>
+                    <div class="header">Enter your name in the box below to help us find your invitation</div>
+                    <input id="invitationInput" />
+                    <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
+                </div>`,
+        },
+        shared: {
+            divider: `<div class="divider"></div>`,
+            emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div><div class="btn error" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.rsvp);">Back</div>`,
+            partyRow: 
+                `<div class="guestPartyRow row">
+                    <div class="guestPartyContent cell">%%%partyHTML%%%</div>
+                    <div class="guestPartyMe cell">
+                        <div class="btn" id="rsvpMe" onclick="wedding.rsvp.guestPartyMe(%%%id%%%)">This is me!</div>
+                    </div>
+                </div>`,
+            guestRow:
+                `<div class="guest">
+                    <div class="rsvp">%%%rsvpInfo%%%</div>
+                    <div class="name">%%%name%%%</div>
+                </div>`,
+            guestRowEdit:
+                `<div class="guestRSVP" data-id="%%%id%%%">
+                    <div class="rsvpLabel">%%%name%%%'s RSVP Status: </div>
+                    <div id="statuses%%%index%%%" class="radios">
+                        <label><input type="radio" name="status%%%index%%%" value="Pending" %%%pendingCheck%%% > Undecided     </label>
+                        <label><input type="radio" name="status%%%index%%%" value="Accept" %%%acceptCheck%%% > Attending     </label>
+                        <label><input type="radio" name="status%%%index%%%" value="Decline" %%%declineCheck%%% > Unable to Attend     </label>
+                    </div>
                 </div>
-            </div>
-            <br/>`,
-        guestRowSubmit:
-            `<br/>
-            <div class="btnWrapper">
-                <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
-                <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
-            </div>`,
-        finalView:
-            `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`
+                <br/>`,
+            guestRowSubmit:
+                `<br/>
+                <div class="btnWrapper">
+                    <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
+                    <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
+                </div>`,
+            finalView:
+                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`,
+        }
     },
-
+    version: undefined,
     currentGuestParties: [],
     currentID: -1,
     showModal: function() {
+        this.version = "desktop";
         var wrapper = document.createElement("div");
         wrapper.id = "rsvpDiv";
-        wrapper.innerHTML = this.templates.rsvpModal;
+        wrapper.innerHTML = this.templates[this.version].rsvpModal;
         document.body.appendChild(wrapper);
-        document.getElementById("modalContent").innerHTML = this.templates.findInvitationView;
+        document.getElementById("modalContent").innerHTML = this.templates[this.version].findInvitationView;
     },
 
     showPage: function() {
-
+        this.version = "mobile";
+        var rsvpContent = document.getElementById("rsvpContent");
+        if(rsvpContent == undefined) {
+            rsvpContent = document.createElement("div");
+            rsvpContent.id = "rsvp";
+            rsvpContent.innerHTML = this.templates[this.version].rsvpModal;
+            rsvpContent.classList.add("tabContent");
+            document.body.appendChild(rsvpContent);
+        }
+        document.getElementById("modalContent").innerHTML = this.templates[this.version].findInvitationView;
     },
     // TODO make back button to search bar
     findGuest: function(input) {
@@ -78,28 +99,35 @@ wedding.rsvp = {
         var html = "";
         var wrapper = document.createElement("div");
         if (parties.length == 0 || parties[0] == undefined) {
-            html += this.templates.emptyView;
+            html += this.templates.shared.emptyView;
         } else {
             wrapper.classList.add("table"); 
             for(var i = 0; i < parties.length; i++) {
                 if(i != 0) {
-                    html += this.templates.divider;
+                    html += this.templates.shared.divider;
                 }
                 var partyHTML = "";
                 for(var o = 0; o < parties[i].guests.length; o++) {
-                    partyHTML += wedding.util.formatString(this.templates.guestRow, parties[i].guests[o]);
+                    var guest = parties[i].guests[o];
+                    partyHTML += wedding.util.formatString(this.templates.shared.guestRow, {
+                        name: guest.name,
+                        rsvpInfo: this.getRSVPInfo(guest.rsvp)
+                    });
                 }
                 var obj = {
                     partyHTML: partyHTML,
                     id: parties[i].id
                 };
-                html += wedding.util.formatString(this.templates.partyRow, obj);
+                html += wedding.util.formatString(this.templates.shared.partyRow, obj);
 
             }
         }
         wrapper.innerHTML = html;
         element = document.getElementById("modalContent");
-        element.innerHTML = "";
+        if(this.version != "mobile") {
+            element.innerHTML = "";
+
+        }
         element.appendChild(wrapper);
     },
     closeRSVP: function() {
@@ -120,10 +148,10 @@ wedding.rsvp = {
                 index: i,
                 id: guest.id
             };
-            html += wedding.util.formatString(this.templates.guestRowEdit, obj);
+            html += wedding.util.formatString(this.templates.shared.guestRowEdit, obj);
         }
         this.currentID = party.id;
-        html += this.templates.guestRowSubmit
+        html += this.templates.shared.guestRowSubmit
         document.getElementById("modalContent").innerHTML = html;
     },
     submitStatuses: function(){
@@ -141,7 +169,7 @@ wedding.rsvp = {
         wedding.util.callServer("rsvpGuest.php", function(data){
             if(data == "SUCCESS") {
                 document.getElementById("modalContent").innerHTML = wedding.util.formatString(
-                    wedding.rsvp.templates.finalView, {
+                    wedding.rsvp.templates.shared.finalView, {
                     STRING: wedding.rsvp.getFinishMessage(json[0].RSVP)
                 });
             } else {
@@ -158,6 +186,19 @@ wedding.rsvp = {
                 return "We wish you could make it!";
             case "Accept": 
                 return "We can't wait to see you there!";
+            default:
+                return "";
+        };
+    },
+
+    getRSVPInfo: function(status) {
+        switch(status) {
+            case "Pending": 
+                return "Pending";
+            case "Decline":
+                return "Not Attending";
+            case "Accept": 
+                return "Attending";
             default:
                 return "";
         };

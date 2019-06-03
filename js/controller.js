@@ -10,9 +10,10 @@ wedding.controller = {
         switch(id) {
             case this.labels.rsvp: 
                 if(!this.isMobile) {
-                    wedding.rsvp.showModal();
+                    wedding.rsvp.showModal(this.isMobile);
                 } else {
                     wedding.rsvp.showPage();
+                    this.swapActiveView(id);
                 }
                 break;
             case this.labels.entry: 

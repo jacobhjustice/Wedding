@@ -2,7 +2,8 @@ body {
     margin: 75px 0 0 0;
     background-color: #FFDBE9;
     padding-bottom: 100px;
-    font-family: "Cookie"
+    font-family: "Cookie";
+    min-width: 820px;
 }
 
 .tabContent {
@@ -53,13 +54,19 @@ body {
     width: 100%;
     min-width: 700px;
     height: 75px;
-    padding: 0px 150px;
+    padding: 0px 5%;
     box-sizing: border-box;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 5;
     background-color: #FFDBE9;
+}
+
+@media(max-width: 910px) {
+    #navBar {
+        padding: 0 !important;
+    }
 }
 
 #navBar .option {
@@ -76,6 +83,15 @@ body {
 
 #navBar .option:hover {
     color: green;
+}
+
+@media (max-width: 1300px) {
+    #rsvpNavigation {
+        display: none !important;
+    }
+    #navBar .option { 
+        width: calc(25% - 3px);
+    }
 }
 
 #backgroundWrapper {
@@ -260,6 +276,7 @@ body {
     z-index: 8;
     width: 100vw;
     height: 100vh;
+    max-width: 100%;
 }
 
 #rsvpDimmer {
@@ -298,15 +315,72 @@ body {
 #modalContent {
     padding: 10px;
     text-align: center;
+    max-height: 50vh;
+    overflow-y: auto;
 }
 
-#rsvpModal .divider {
+#modalContent .divider {
     width: 117%;
     background-color: #000000;
     border-radius: 5px;
     height: 3px;
     box-sizing: border-box;
     margin: 15px 40px;
+}
+
+
+/* Mobile view adjustments */
+#modalContent.mobile {
+    max-height: initial !important;
+}
+
+#modalContent.mobile input {
+    height: 40px;
+    padding-left: 5px;
+    font-size: 36px;
+}
+
+#modalContent.mobile input {
+    height: 40px;
+    padding-left: 5px;
+    font-size: 36px;
+}
+
+#modalContent.mobile input[type=radio] {
+    height: .5em;
+    width: .5em;
+}
+
+#modalContent.mobile .btn {
+    height: 50px;
+    width: 250px;
+    line-height: 50px;
+    font-size: 32px;
+}
+
+#modalContent.mobile .guest div {
+    font-size: 40px;
+}
+
+#modalContent.mobile .guest div.rsvp {
+    width: 150px;
+}
+
+#modalContent.mobile .divider {
+    margin: 35px 5%;
+    width: calc(100vw - 50%);
+}
+
+#modalContent.mobile .searcher {
+    margin-bottom: 50px;
+}
+
+#modalContent.mobile h2 {
+    font-size: 42px;
+}
+
+#modalContent.mobile h3 {
+    font-size: 36px;
 }
 
 #invitationInput {
@@ -345,6 +419,8 @@ body {
     text-align: center;
     border-radius: 7px;
     margin-bottom: 10px;
+    font-family: 'Kalam', cursive;
+
 }
 
 .btn.error {
@@ -447,4 +523,9 @@ body {
 .contentWrapper.photo {
     width: 100%;
     text-align: center;
+}
+
+#modalContent.mobile .header {
+    font-size: 42px;
+    font-family: 'Kalam', cursive;
 }
