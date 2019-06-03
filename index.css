@@ -271,7 +271,7 @@ body {
 }
 
 #rsvpWrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 8;
     width: 100vw;
@@ -528,4 +528,32 @@ body {
 #modalContent.mobile .header {
     font-size: 42px;
     font-family: 'Kalam', cursive;
+}
+
+.attractionGroup {
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.attractionGroup div {
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.attractionGroup .imgWrap {
+    height: 100%;
+    width: 40%;
+}
+
+
+.attractionGroup img {
+    width: 100%;
+    vertical-align: baseline;
+}
+
+.attractionGroup .textContent {
+    width: 45%;
+    margin: 0 5%;
+    text-align: center;
 }

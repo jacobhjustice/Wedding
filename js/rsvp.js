@@ -4,26 +4,43 @@ wedding.rsvp = {
         mobile: {
             rsvpModal: `<div id="modalContent" class="mobile"></div>`,
             findInvitationView: 
-            `<div class="searcher">
-                <div class="header">Enter your name in the box below to help us find your invitation</div>
-                <input id="invitationInput" />
-                <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
-            </div>`,
+                `<div class="searcher">
+                    <div class="header">Enter your name in the box below to help us find your invitation</div>
+                    <input id="invitationInput" />
+                    <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
+                    <div class="btn error" onclick="wedding.controller.load(wedding.controller.labels.entry);">Return</div>
+                </div>`,
+            finalView:
+                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.controller.load(wedding.controller.labels.entry);">Return</div>`,
+            guestRowSubmit:
+                `<br/>
+                <div class="btnWrapper">
+                    <div class="btn error " onclick="wedding.rsvp.showPage();">Back</div>
+                    <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
+                </div>`,
         },
         desktop: {
             rsvpModal: 
-            `<div id="rsvpWrapper">
-                <div id="rsvpDimmer" onclick="wedding.rsvp.closeRSVP();"></div> 
-                <div id="rsvpModal">
-                    <div id="x" onclick="wedding.rsvp.closeRSVP();">&times;</div>
-                    <div id="modalContent"></div>
-                </div>
-            </div>`,
+                `<div id="rsvpWrapper">
+                    <div id="rsvpDimmer" onclick="wedding.rsvp.closeRSVP();"></div> 
+                    <div id="rsvpModal">
+                        <div id="x" onclick="wedding.rsvp.closeRSVP();">&times;</div>
+                        <div id="modalContent"></div>
+                    </div>
+                </div>`,
             findInvitationView: 
                 `<div>
                     <div class="header">Enter your name in the box below to help us find your invitation</div>
                     <input id="invitationInput" />
                     <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
+                </div>`,
+            finalView:
+                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`,
+            guestRowSubmit:
+                `<br/>
+                <div class="btnWrapper">
+                    <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
+                    <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
                 </div>`,
         },
         shared: {
@@ -57,8 +74,6 @@ wedding.rsvp = {
                     <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
                     <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
                 </div>`,
-            finalView:
-                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`,
         }
     },
     version: undefined,
@@ -151,7 +166,7 @@ wedding.rsvp = {
             html += wedding.util.formatString(this.templates.shared.guestRowEdit, obj);
         }
         this.currentID = party.id;
-        html += this.templates.shared.guestRowSubmit
+        html += this.templates[this.version].guestRowSubmit
         document.getElementById("modalContent").innerHTML = html;
     },
     submitStatuses: function(){
@@ -169,7 +184,7 @@ wedding.rsvp = {
         wedding.util.callServer("rsvpGuest.php", function(data){
             if(data == "SUCCESS") {
                 document.getElementById("modalContent").innerHTML = wedding.util.formatString(
-                    wedding.rsvp.templates.shared.finalView, {
+                    wedding.rsvp.templates[wedding.rsvp.version].finalView, {
                     STRING: wedding.rsvp.getFinishMessage(json[0].RSVP)
                 });
             } else {
