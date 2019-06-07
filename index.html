@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>#Justice4all</title>
+        <link rel="icon" href="img/icon.png">
+
     </head>
     <body>
         <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
@@ -27,7 +29,7 @@
                         <img style="width:100%;" src ="/img/propls.jpg" />
                     </div>
                     <div id="timeDetails">
-                            <div id="Details"><div class="timeHeader">Ceremony & Reception</div>December 21st, 4:00 PM<br/>Newnan Historic Train Depot<br/>60 E Broad St, Newnan, GA</div>
+                            <div id="Details"><div class="timeHeader">Ceremony & Reception</div>December 21st, 2:30 PM EST<br/>Newnan Historic Train Depot<br/>60 E Broad St, Newnan, GA</div>
                             <div id="rsvpBtn" onclick="wedding.controller.load(wedding.controller.labels.rsvp);">RSVP</div>
                             <div id="tick"></div>
 
@@ -69,7 +71,7 @@
                         <div class="label">Leah Hildreth<br/><div class="subtitle">Bridesmaid</div></div>
                     </div>
                     <div class="bridesmaidWrap content">
-                        <img src=".png"/>
+                        <img src="img/grace.jpg"/>
                         <div class="label">Grace McCormick<br/><div class="subtitle">Bridesmaid</div></div>
                     </div>
                     <div class="bridesmaidWrap content">
@@ -109,7 +111,7 @@
                             <div class="label">Ryan LaGrone<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                         <div class="groomsmanWrap content">
-                            <img src=".png"/>
+                            <img src="img/trip.jpg"/>
                             <div class="label">Trip Watson<br/><div class="subtitle">Groomsman</div></div>
                         </div>
                 </div>
@@ -144,8 +146,11 @@
         <div id="trip" class="tabContent">
             <div class="contentWrapper">
                 <div class="sectionHeader">Lodging</div>
-                <div class="textContent">
+                <!-- <div class="textContent">
                     If you don't have a place to stay for the weekend, be sure to book a room at _____________. Ask about booking for the Justice wedding!
+                 </div> -->
+                 <div class="textContent">
+                    If you don't have a place to stay for the weekend, check back soon. We should have a hotel block set up in the next few weeks for you to book from!
                  </div>
             </div>
             <div class="contentWrapper">
@@ -192,6 +197,7 @@
 
 
         <script>
+            wedding.controller.onLoad();
             wedding.entry.clockTick();
             wedding.photos.buildPhotos();
         </script>

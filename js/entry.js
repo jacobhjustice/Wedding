@@ -1,10 +1,11 @@
 var wedding = wedding != undefined ? wedding : {};
 wedding.entry = {
-    WEDDING_TIME: new Date('December 21, 2019 16:00:00'),
+    WEDDING_TIME: new Date(Date.UTC(2019, 12, 21, 18, 30)),
     clockTick: function() {
-        var current = new Date();
+        var now = new Date();
+        var current = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
         tick = document.getElementById("tick");
-        var diff = this.WEDDING_TIME.getTime() - current.getTime();
+        var diff = this.WEDDING_TIME.getTime() - current;
         if(diff > 0) {
             var secs = Math.floor(diff / 1000);
             var mins = Math.floor(secs / 60);
