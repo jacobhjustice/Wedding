@@ -17,13 +17,11 @@ wedding.controller = {
                     wedding.rsvp.showPage();
                     this.swapActiveView(id);
                 }
-                window.location.hash = id;
                 break;
             case this.labels.entry: 
             case this.labels.couple:
             case this.labels.trip:
             case this.labels.registry:
-                window.location.hash = id;
                 this.swapActiveView(id);
                 break;
         }
@@ -34,21 +32,5 @@ wedding.controller = {
         });
         document.getElementById(id).style.display = "block";
     },
-    onLoad: function() {
-        var hash = window.location.hash;
-        if(hash.length > 1) {
-            hash = hash.substring(1)
-        }
-        switch(hash) {
-            case this.labels.registry:
-            case this.labels.rsvp:
-            case this.labels.couple:
-            case this.labels.entry:
-            case this.labels.trip:
-                this.load(hash);
-                break;
-            default:
-                this.load(this.labels.entry);
-        }
-    }
+
 };
