@@ -33,7 +33,8 @@
             'RSVP' => $row["RSVP"],
             'PRIMARY_GUEST' => $row["PrimaryGuest"],
             'ADDRESS' => $row["Address"],
-            'SAVE_THE_DATE' => $row["SaveTheDateSent"]
+            'SAVE_THE_DATE' => $row["SaveTheDateSent"],
+            'DIET' => $row["dietary_restrictions"]
         ]);
     }
 

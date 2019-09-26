@@ -14,8 +14,10 @@
 
         $id = $row->ID;
         $rsvp = filter_var(trim($row->RSVP), FILTER_SANITIZE_STRING);
-        $query = mysqli_prepare($con, "UPDATE Guests SET RSVP=? WHERE ID=?");
-        mysqli_stmt_bind_param($query, "si", $rsvp, $id);
+        $diet = filter_var(trim($row->DIET), FILTER_SANITIZE_STRING);
+
+        $query = mysqli_prepare($con, "UPDATE Guests SET RSVP=?, dietary_restrictions=? WHERE ID=?");
+        mysqli_stmt_bind_param($query, "ssi", $rsvp, $diet, $id);
         mysqli_stmt_execute($query);
         mysqli_stmt_close();
 

@@ -13,11 +13,12 @@ wedding.guests = {
             </div>`,
     },
     partyList: [],
-    guestParty: function(primaryGuest, address, isSaveTheDateSent) {
+    guestParty: function(primaryGuest, address, isSaveTheDateSent, diet) {
         this.id = primaryGuest.id;
         this.guests = [primaryGuest];
         this.address = address;
         this.isSaveTheDateSent = isSaveTheDateSent;
+        this.diet = diet
     },
     guest: function(id, name, rsvp, isPrimary) {
         this.id = id;
@@ -51,14 +52,19 @@ wedding.guests = {
                 if(curParty != null) {
                     partyList.push(curParty);
                 }
-                curParty = new this.guestParty(guest, guests[i].ADDRESS, guests[i].SAVE_THE_DATE == true);
+                curParty = new this.guestParty(guest, guests[i].ADDRESS, guests[i].SAVE_THE_DATE == true, guests[i].DIET);
             } else {
                 curParty.guests.push(guest);
             }
 
         }
         partyList.push(curParty);
-        return partyList;
+        return this.sortPartyList(partyList);
+    },
+    sortPartyList: function(list) {
+        return list.sort(function(a, b){
+            return a.guests[0].name < b.guests[0].name ? -1 : 0;
+        })
     },
     generateGuestTableHTML: function() {
         var wrapper = document.createElement("div");

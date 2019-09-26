@@ -14,10 +14,13 @@ wedding.rsvp = {
                 `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.controller.load(wedding.controller.labels.entry);">Return</div>`,
             guestRowSubmit:
                 `<br/>
+                <textarea id="dietaryRestrictionInput" placeholder="Dietary Restrictions"></textarea>
                 <div class="btnWrapper">
                     <div class="btn error " onclick="wedding.rsvp.showPage();">Back</div>
                     <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
                 </div>`,
+            emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div>`,
+
         },
         desktop: {
             rsvpModal: 
@@ -38,14 +41,15 @@ wedding.rsvp = {
                 `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`,
             guestRowSubmit:
                 `<br/>
+                <textarea id="dietaryRestrictionInput" placeholder="Dietary Restrictions"></textarea>
                 <div class="btnWrapper">
                     <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
                     <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
                 </div>`,
+            emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div><div class="btn error" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.rsvp);">Back</div>`,
         },
         shared: {
             divider: `<div class="divider"></div>`,
-            emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div><div class="btn error" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.rsvp);">Back</div>`,
             partyRow: 
                 `<div class="guestPartyRow row">
                     <div class="guestPartyContent cell">%%%partyHTML%%%</div>
@@ -67,13 +71,7 @@ wedding.rsvp = {
                         <label><input type="radio" name="status%%%index%%%" value="Decline" %%%declineCheck%%% > Unable to Attend     </label>
                     </div>
                 </div>
-                <br/>`,
-            guestRowSubmit:
-                `<br/>
-                <div class="btnWrapper">
-                    <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
-                    <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
-                </div>`,
+                <br/>`
         }
     },
     version: undefined,
@@ -110,11 +108,19 @@ wedding.rsvp = {
         }, ["NAME",  encodeURIComponent(name)]);
     },
     displayParty: function() {
+        element = document.getElementById("modalContent");
+
         var parties = this.currentGuestParties
         var html = "";
+        content = document.getElementById("extra_stuff");
+        if (content != undefined){
+            element.removeChild(content);
+        }
+
         var wrapper = document.createElement("div");
+        wrapper.id = "extra_stuff"
         if (parties.length == 0 || parties[0] == undefined) {
-            html += this.templates.shared.emptyView;
+            html += this.templates[wedding.rsvp.version].emptyView;
         } else {
             wrapper.classList.add("table"); 
             for(var i = 0; i < parties.length; i++) {
@@ -138,7 +144,6 @@ wedding.rsvp = {
             }
         }
         wrapper.innerHTML = html;
-        element = document.getElementById("modalContent");
         if(this.version != "mobile") {
             element.innerHTML = "";
 
@@ -168,6 +173,7 @@ wedding.rsvp = {
         this.currentID = party.id;
         html += this.templates[this.version].guestRowSubmit
         document.getElementById("modalContent").innerHTML = html;
+        document.getElementById("dietaryRestrictionInput").value = party.diet;
     },
     submitStatuses: function(){
         var rows = document.getElementsByClassName("guestRSVP");
@@ -175,10 +181,12 @@ wedding.rsvp = {
         for(var i = 0; i < rows.length; i++) {
             var id = rows[i].dataset["id"];
             var rsvp = document.querySelector(`input[name="status` + i + `"]:checked`).value;
+            var diet = document.getElementById(`dietaryRestrictionInput`).value
 
             json.push({
                 ID: parseInt(id),
-                RSVP: rsvp
+                RSVP: rsvp,
+                DIET: diet
             });
         }
         wedding.util.callServer("rsvpGuest.php", function(data){
