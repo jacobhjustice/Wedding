@@ -10,15 +10,15 @@ wedding.rsvp = {
                     <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
                     <div class="btn error" onclick="wedding.controller.load(wedding.controller.labels.entry);">Return</div>
                 </div>`,
-            finalView:
-                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.controller.load(wedding.controller.labels.entry);">Return</div>`,
+
             guestRowSubmit:
                 `<br/>
                 <textarea id="dietaryRestrictionInput" placeholder="Dietary Restrictions"></textarea>
-                <div class="btnWrapper">
+                <div class="btnWrapper block">
                     <div class="btn error " onclick="wedding.rsvp.showPage();">Back</div>
                     <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
-                </div>`,
+                </div>
+                <div class="disclaimer">Due to venue size, we sadly cannot invite as many people as we wish to. If you would like to add a plus one, please reach out, and we will see what we can do after we have a better idea of how many seats are unfilled. We hope you understand.</div>`,
             emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div>`,
 
         },
@@ -37,15 +37,14 @@ wedding.rsvp = {
                     <input id="invitationInput" />
                     <div class="btn" onclick="wedding.rsvp.findGuest(invitationInput);">Search</div>
                 </div>`,
-            finalView:
-                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3><div class="btn error" onclick="wedding.rsvp.closeRSVP();">Close</div>`,
             guestRowSubmit:
                 `<br/>
                 <textarea id="dietaryRestrictionInput" placeholder="Dietary Restrictions"></textarea>
-                <div class="btnWrapper">
+                <div class="btnWrapper block">
                     <div class="btn error " onclick="wedding.rsvp.displayParty();">Back</div>
                     <div class="btn" onclick="wedding.rsvp.submitStatuses();">Submit</div>
-                </div>`,
+                </div>
+                <div class="disclaimer">Due to venue size, we sadly cannot invite as many people as we wish to. If you would like to add a plus one, please reach out, and we will see what we can do after we have a better idea of how many seats are unfilled. We hope you understand.</div>`,
             emptyView: `<div class="modalAlertMessage header">Sorry, we could not find you on the list. Please make sure you have entered your name as seen on your invitation.</div><div class="btn error" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.rsvp);">Back</div>`,
         },
         shared: {
@@ -62,6 +61,12 @@ wedding.rsvp = {
                     <div class="rsvp">%%%rsvpInfo%%%</div>
                     <div class="name">%%%name%%%</div>
                 </div>`,
+            finalView:
+                `<h2>You're all set.</h2><h3>%%%STRING%%%</h3>
+                <div class="btn nav" onclick="wedding.controller.load(wedding.controller.labels.entry);wedding.rsvp.closeRSVP();">Wedding Information</div>
+                <div class="btn nav" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.couple);">The Couple's Story</div>
+                <div class="btn nav" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.registry);">Registry</div>
+                <div class="btn nav" onclick="wedding.rsvp.closeRSVP();wedding.controller.load(wedding.controller.labels.trip);">Lodging and Things to Do</div>`,
             guestRowEdit:
                 `<div class="guestRSVP" data-id="%%%id%%%">
                     <div class="rsvpLabel">%%%name%%%'s RSVP Status: </div>
@@ -192,7 +197,7 @@ wedding.rsvp = {
         wedding.util.callServer("rsvpGuest.php", function(data){
             if(data == "SUCCESS") {
                 document.getElementById("modalContent").innerHTML = wedding.util.formatString(
-                    wedding.rsvp.templates[wedding.rsvp.version].finalView, {
+                    wedding.rsvp.templates.shared.finalView, {
                     STRING: wedding.rsvp.getFinishMessage(json[0].RSVP)
                 });
             } else {

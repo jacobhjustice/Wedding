@@ -10,6 +10,10 @@ body {
     display: none;
 }
 
+.block {
+    display: block !important;
+}
+
 .inline {
     display: inline-block;
 }
@@ -32,6 +36,10 @@ body {
     font-size: 36px;
     line-height: 40px;
     height: auto;
+}
+
+.disclaimer {
+    margin-top: 45px;
 }
 
 #rsvpBtn {
@@ -439,6 +447,10 @@ body {
     margin-bottom: 10px;
     font-family: 'Kalam', cursive;
 
+}
+
+.btn.nav {
+    width: 50% !important;
 }
 
 .btn.big {

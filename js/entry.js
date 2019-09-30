@@ -1,6 +1,6 @@
 var wedding = wedding != undefined ? wedding : {};
 wedding.entry = {
-    WEDDING_TIME: new Date(Date.UTC(2019, 12, 21, 19, 30)),
+    WEDDING_TIME: new Date(Date.UTC(2019, 11, 21, 19, 30)),
     clockTick: function() {
         var now = new Date();
         var current = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
