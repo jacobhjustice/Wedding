@@ -453,6 +453,10 @@ body {
     width: 50% !important;
 }
 
+#modalContent.mobile .btn.nav {
+    margin-bottom: 40px;
+}
+
 .btn.big {
     height: 32px;
     line-height: 32px;
