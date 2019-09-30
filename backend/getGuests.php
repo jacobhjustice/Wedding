@@ -13,7 +13,7 @@
         $query = mysqli_prepare($con, "SELECT DISTINCT G.* FROM Guests G LEFT JOIN Guests P ON P.ID = G.PrimaryGuest LEFT JOIN Guests S ON S.PrimaryGuest = G.ID LEFT JOIN Guests S2 ON S2.PrimaryGuest = G.PrimaryGuest WHERE G.Name LIKE ? OR P.Name LIKE ? OR S.Name LIKE ? OR S2.Name LIKE ? ORDER BY G.ID ASC");
         mysqli_stmt_bind_param($query, "ssss", $name, $name, $name, $name);
     } else {
-        $query = mysqli_prepare($con, "SELECT * FROM Guests ORDER BY ifnull(PrimaryGuest, ID) ASC");
+        $query = mysqli_prepare($con, "SELECT * FROM Guests ORDER BY ifnull(PrimaryGuest, ID), ID ASC");
     }
     mysqli_stmt_execute($query);
     $err = mysqli_error($con);
