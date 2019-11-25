@@ -389,7 +389,7 @@ body {
 }
 
 #modalContent.mobile .guest div.rsvp {
-    width: 150px;
+    width: 200px;
 }
 
 #modalContent.mobile .divider {
@@ -451,6 +451,18 @@ body {
 
 .btn.nav {
     width: 50% !important;
+}
+
+.btn.lodge {
+    margin-right: 15px;
+    background-color: gray;
+    width: 250px;
+}
+
+
+#trip .btnWrapper {
+    text-align: center;
+    width: 100%;
 }
 
 #modalContent.mobile .btn.nav {
