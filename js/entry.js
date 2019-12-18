@@ -1,6 +1,6 @@
 var wedding = wedding != undefined ? wedding : {};
 wedding.entry = {
-    WEDDING_TIME: new Date(Date.UTC(2019, 11, 21, 19, 30)),
+    WEDDING_TIME: new Date(Date.UTC(2019, 11, 21, 20, 30)),
     clockTick: function() {
         var now = new Date();
         var current = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
@@ -11,7 +11,7 @@ wedding.entry = {
             var mins = Math.floor(secs / 60);
             var hrs = Math.floor(mins / 60);
             var days = Math.floor(hrs / 24);
-            var hrsLeft = hrs % days;
+            var hrsLeft = hrs % (24*days);
             var minsLeft = mins % hrs;
             var secsLeft = secs % mins;
             str = days + " Days<br/>" + hrsLeft + " Hours<br/>" +  minsLeft + " Minutes<br/>" + secsLeft + " Seconds<br/>";
